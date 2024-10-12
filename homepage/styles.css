@@ -1,0 +1,206 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.header {
+    background-color: black;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    color: white;
+    font-size: 25px;
+    margin: 0;
+}
+
+.nav-links {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    /* Alinha os itens verticalmente */
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    margin-right: 50px;
+    /* Adiciona espaço entre os links */
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+    color: white;
+}
+
+.dropdown-item {
+    font-family: 'Roboto', sans-serif;
+    /* Defina a fonte desejada */
+    font-size: 16px;
+    /* Defina o tamanho da fonte desejado */
+    font-weight: bold;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: lightgrey;
+    padding: 10px;
+    z-index: 1;
+    left: -30px;
+    /* Ajusta a posição da caixa do dropdown para a esquerda */
+}
+
+.dropdown:hover .dropdown-menu,
+.dropdown:focus-within .dropdown-menu {
+    display: block;
+}
+
+.dropdown:hover .dropdown-toggle,
+.dropdown:focus-within .dropdown-toggle {
+    color: white;
+    /* Cor do link quando o dropdown está aberto */
+}
+
+.button {
+    border-radius: 8px;
+    font-weight: bold;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.signup-button {
+    background-color: lightgrey;
+    color: black;
+    margin-right: 15px;
+    /* Adiciona espaço entre o botão e os links */
+}
+
+.signup-button:hover {
+    background-color: grey;
+    color: white;
+}
+
+.contact-button {
+    background-color: black;
+    color: white;
+    width: 100%;
+}
+
+.contact-button:hover {
+    background-color: white;
+    color: grey;
+}
+
+input[type=text] {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('searchicon.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+    width: 100%;
+}
+
+form {
+    margin-bottom: 50px;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.card:hover {
+    background-color: lightgrey;
+    color: white;
+}
+
+.card:hover img {
+    opacity: 0.7;
+}
+
+.title {
+    color: grey;
+    font-size: 18px;
+}
+
+a {
+    text-decoration: none;
+    font-size: 22px;
+    color: black;
+}
+
+a:hover {
+    opacity: 0.7;
+    color: white;
+}
+
+
+.custom-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 20px;
+    /* Adiciona espaço entre o header e o formulário */
+}
+
+.custom-form h2 {
+    color: black;
+}
+
+.custom-form p {
+    color: black;
+}
+
+.custom-form label {
+    color: black;
+}
+
+.custom-form .form-group {
+    margin-bottom: 20px;
+}
+
+.custom-form .btn-primary {
+    background-color: lightgrey;
+    color: black;
+}
+
+.custom-form .btn-primary:hover {
+    background-color: grey;
+    color: white;
+}
+
+.custom-form .btn-secondary {
+    background-color: black;
+    color: white;
+}
+
+.custom-form .btn-secondary:hover {
+    background-color: grey;
+    color: white;
+}

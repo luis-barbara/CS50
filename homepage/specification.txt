@@ -1,0 +1,22 @@
+1. List of 10 HTML Tags
+<html>: The root element of an HTML document.
+<head>: Contains meta-information about the HTML document.
+<link>: Used to link external resources like stylesheets.
+<script>: Embeds or refers to executable code.
+<title>: Specifies the title of the document, shown in the browser's title bar.
+<body>: Contains the content of an HTML document.
+<div>: A generic container for flow content.
+<form>: Represents a section of a document with interactive controls for submitting data.
+<input>: Used to create interactive controls in a form.
+<ul>: Defines an unordered list.
+
+2. List of 5 CSS Properties I’ve Used
+background-color: Sets the background color of an element.
+font-size: Specifies the size of the font.
+padding: Adds space inside the border of an element.
+border-radius: Rounds the corners of an element's outer border.
+box-shadow: Adds shadow effects around an element.
+
+3. Description of JavaScript and Bootstrap Usage
+JavaScript: I used JavaScript to add interactivity to the "Contact" button, displaying an alert message when the button is clicked.
+Bootstrap: I utilized Bootstrap to leverage its pre-defined styles and components for a responsive layout and easier styling of the webpage, including navigation, dropdown menus, and form elements.
