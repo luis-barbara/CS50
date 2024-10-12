@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="styles.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <header class="d-flex flex-wrap justify-content-between align-items-center py-3 mb-4 border-bottom navbar">
+            <a href="home.html" class="d-flex align-items-center text-decoration-none dxmed-link">
+                <span class="title">dxMed</span>
+            </a>
+
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a href="home.html" class="nav-link" aria-current="page">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="faqs.html" class="nav-link">FAQs</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">About</a>
+                </li>
+            </ul>
+        </header>
+
+        <div class="dropdown-buttons d-flex">
+            <div class="dropdown dropdown-spacing me-3">
+                <button id="especialidade-button" class="btn btn-primary dropdown-toggle" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Especialidade
+                </button>
+                <ul class="dropdown-menu" id="especialidade-menu">
+                    <input class="form-control" id="myInput1" type="text" placeholder="Search..">
+                    <li><a class="dropdown-item" href="#" data-value="Cardiologia">Cardiologia</a></li>
+                    <li><a class="dropdown-item" href="#" data-value="Dermatologia">Dermatologia</a></li>
+                    <li><a class="dropdown-item" href="#" data-value="Pneumologia">Pneumologia</a></li>
+                    <li><a class="dropdown-item" href="#" data-value="Neurologia">Neurologia</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown dropdown-spacing">
+                <button id="patologia-button" class="btn btn-primary dropdown-toggle" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Patologia
+                </button>
+                <ul class="dropdown-menu" id="patologia-menu">
+                    <input class="form-control" id="myInput2" type="text" placeholder="Search..">
+                    <!-- Patologias serão inseridas aqui pelo JavaScript -->
+                </ul>
+            </div>
+        </div>
+
+        <div class="selected-items">
+            <span id="selected-especialidade" class="selected-especialidade"></span>
+            <span id="selected-patologia" class="selected-patologia"></span>
+        </div>
+
+        <!-- Formulário de História Clínica será inserido aqui -->
+        <div id="clinical-history-form"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+    </script>
+    <script>
+        $(document).ready(function () {
+            const patologias = {
+                "Cardiologia": ["Infarto", "Angina", "Arritmia"],
+                "Dermatologia": ["Psoríase", "Eczema", "Acne"],
+                "Pneumologia": ["Asma", "Bronquite", "Tuberculose"],
+                "Neurologia": ["Perturbação do Sono", "Acidente Vascular Cerebral", "Alzheimer"]
+            };
+
+            function updatePatologias(especialidade) {
+                const patologiaMenu = $("#patologia-menu");
+                patologiaMenu.empty(); // Limpa completamente o menu
+                patologiaMenu.append('<input class="form-control" id="myInput2" type="text" placeholder="Search..">');
+                if (patologias[especialidade]) {
+                    patologias[especialidade].forEach(patologia => {
+                        patologiaMenu.append(`<li><a class="dropdown-item" href="#">${patologia}</a></li>`);
+                    });
+                }
+            }
+
+            function showClinicalHistoryForm() {
+                const formHtml = `
+<div class="card mt-4">
+    <div class="card-header">
+        <span class="clinical-history-title">História Clínica</span>
+    </div>
+    <div class="card-body">
+        <form>
+            <div class="mb-3">
+                <h5 class="question-title">1. Frequência e Duração?</h5>
+                <div class="dropdown mb-2">
+                    <select id="frequencia" class="form-select dropdown-custom">
+                        <option value="" disabled selected>Frequência</option>
+                        <option value="Diária">Diária</option>
+                        <option value="Semanal">Semanal</option>
+                        <option value="Mensal">Mensal</option>
+                    </select>
+                </div>
+                <div class="dropdown mb-2">
+                    <select id="duracao" class="form-select dropdown-custom">
+                        <option value="" disabled selected>Duração</option>
+                        <option value="Até 1 semana">Até 1 semana</option>
+                        <option value="1 semana até 1 mês">1 semana até 1 mês</option>
+                        <option value="+1 mês até 1 ano">+1 mês até 1 ano</option>
+                        <option value="+1 ano">+1 ano</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <h5 class="question-title">2. Disfunção Diurna?</h5>
+                <div class="dropdown">
+                    <select id="disfuncaoDiurna" class="form-select dropdown-custom">
+                        <option value="" disabled selected>Selecione</option>
+                        <option value="Não">Não</option>
+                        <option value="Sim">Sim</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <h5 class="question-title">3. Associação com Medicamentos ou Abuso de Substâncias?</h5>
+                <div class="dropdown">
+                    <select id="associacaoMedicamentos" class="form-select dropdown-custom">
+                        <option value="" disabled selected>Selecione</option>
+                        <option value="Não">Não</option>
+                        <option value="Sim">Sim</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <h5 class="question-title">4. Associação ao Stress/Episódio Stressante?</h5>
+                <div class="dropdown">
+                    <select id="associacaoStress" class="form-select dropdown-custom">
+                        <option value="" disabled selected>Selecione</option>
+                        <option value="Não">Não</option>
+                        <option value="Sim">Sim</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <h5 class="question-title">5. Oportunidade de Sono Adequada?</h5>
+                <div class="dropdown">
+                    <select id="oportunidadeSono" class="form-select dropdown-custom">
+                        <option value="" disabled selected>Selecione</option>
+                        <option value="Não">Não</option>
+                        <option value="Sim">Sim</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <h5 class="question-title">6. Patologia(s) Associada(s)?</h5>
+                <div class="dropdown">
+                    <select id="patologiasAssociadas" class="form-select dropdown-custom">
+                        <option value="" disabled selected>Selecione</option>
+                        <option value="Não">Não</option>
+                        <option value="Sim">Sim</option>
+                    </select>
+                </div>
+                <div id="info-patologias" style="display: none;">
+                    <p class="reduce-spacing">Tratar a patologia de base (IC, Hipertiroidismo, DM, Doença renal, Depressão, Ansiedade, Dor crónica/mal controlada).</p>
+                    <p class="reduce-spacing">Na depressão associada a insónia, há vantagem na prescrição de amitriptilina, trazodona ou mirtazapina.</p>
+                </div>
+            </div>
+
+             <div class="mb-3">
+                            <h5 class="question-title">7. Sintomas Noturnos Associados?</h5>
+                            <div class="mt-4">
+                                <h6 class="sub-question-title">7.1. Sintomas Respiratórios</h6>
+                                <div class="dropdown mb-2">
+                                    <select id="respiratorios" class="form-select dropdown-custom">
+                                        <option value="" disabled selected>Respiratórios</option>
+                                        <option value="Não">Não</option>
+                                        <option value="Sim">Sim</option>
+                                    </select>
+                                </div>
+
+                                <div class="mt-2" id="respiratorios-perguntas" style="display: none;">
+                                    <p>Acorda frequentemente durante a noite sem saber porquê?</p>
+                                    <div class="dropdown mb-2">
+                                        <select id="acorda-noite" class="form-select dropdown-custom">
+                                            <option value="" disabled selected>Selecione</option>
+                                            <option value="Não">Não</option>
+                                            <option value="Sim">Sim</option>
+                                        </select>
+                                    </div>
+                                    <p>Ressona alto?</p>
+                                    <div class="dropdown mb-2">
+                                        <select id="ressona-alto" class="form-select dropdown-custom">
+                                            <option value="" disabled selected>Selecione</option>
+                                            <option value="Não">Não</option>
+                                            <option value="Sim">Sim</option>
+                                        </select>
+                                    </div>
+                                    <p>Tem sonolência diurna excessiva?</p>
+                                    <div class="dropdown mb-2">
+                                        <select id="sonolencia-diurna" class="form-select dropdown-custom">
+                                            <option value="" disabled selected>Selecione</option>
+                                            <option value="Não">Não</option>
+                                            <option value="Sim">Sim</option>
+                                        </select>
+                                    </div>
+                                    <!-- Div para exibir a mensagem com base nas respostas -->
+                                    <div id="mensagem-respiratorios" style="display: none;">
+                                        <p id="mensagem-respiratorios-texto"></p>
+                                    </div>
+                                    <!-- Botão para verificar as respostas -->
+                                    <button type="button" class="btn btn-primary mt-2" onclick="verificarSintomasRespiratorios()">Verificar</button>
+                                </div>
+                            </div>
+
+                           <div class="mt-4">
+                    <h6 class="sub-question-title">7.2. Sintomas Motores</h6>
+                    <div class="dropdown mb-2">
+                        <select id="motores" class="form-select dropdown-custom">
+                            <option value="" disabled selected>Motores</option>
+                            <option value="Não">Não</option>
+                            <option value="Sim">Sim</option>
+                        </select>
+                    </div>
+
+                    <div id="perguntas-sensacoes-pernas" style="display: none;">
+                        <p>Sensações desagradáveis e inquietação nas pernas quando tenta adormecer?</p>
+                        <div class="dropdown mb-2">
+                            <select id="sensacoes-pernas" class="form-select dropdown-custom">
+                                <option value="" disabled selected>Selecione</option>
+                                <option value="Não">Não</option>
+                                <option value="Sim">Sim</option>
+                            </select>
+                        </div>
+                        <div id="mensagem-sensacoes-pernas" style="display: none;">
+                            <p class="reduce-spacing">Síndrome das pernas inquietas: suplementação de ferro (quando défice), gabapentina, pregabalina.</p>
+                        </div>
+                        <div id="perguntas-movimentos" style="display: none;">
+                            <p>Movimentos/comportamentos indesejados ou emoções/perceções/sonhos que ocorrem na entrada do sono, durante ou ao despertar?</p>
+                            <div class="dropdown mb-2">
+                                <select id="movimentos-indesejados" class="form-select dropdown-custom">
+                                    <option value="" disabled selected>Selecione</option>
+                                    <option value="Não">Não</option>
+                                    <option value="Sim">Sim</option>
+                                </select>
+                            </div>
+                            <div id="mensagem-movimentos-indesejados" style="display: none;">
+                                <p class="reduce-spacing">Parassonias: encaminhar para especialidade de neurologia.</p>
+                            </div>
+                            <div id="mensagem-distorcia" style="display: none;">
+                                <p class="reduce-spacing">Mantém distúrbio do sono ou não foram identificadas causas solucionáveis.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+             `;
+                $("#clinical-history-form").html(formHtml);
+            }
+
+            $("#especialidade-menu").on("click", ".dropdown-item", function () {
+                const selectedEspecialidade = $(this).data("value");
+                const selectedEspecialidadeText = $(this).text();
+                $("#especialidade-button").text(selectedEspecialidadeText); // Atualiza o texto do botão de especialidade
+
+                // Limpa a seleção de patologia e reseta o dropdown
+                $("#patologia-button").text("Patologia");
+                $("#selected-patologia").empty();
+
+                // Atualiza as opções de patologia com base na especialidade selecionada
+                updatePatologias(selectedEspecialidade);
+
+                // Limpa o formulário de História Clínica ao trocar a especialidade
+                $("#clinical-history-form").empty();
+            });
+
+            $("#patologia-menu").on("click", ".dropdown-item", function () {
+                const selectedPatologia = $(this).text();
+                $("#patologia-button").text(selectedPatologia); // Atualiza o texto do botão de patologia
+
+                // Exibe o formulário de História Clínica se a especialidade for "Neurologia" e a patologia "Perturbação do Sono"
+                const selectedEspecialidade = $("#especialidade-button").text();
+                if (selectedEspecialidade === "Neurologia" && selectedPatologia === "Perturbação do Sono") {
+                    showClinicalHistoryForm();
+                } else {
+                    $("#clinical-history-form").empty();
+                }
+            });
+
+            $("#myInput1").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#especialidade-menu li a").filter(function () {
+                    $(this).parent().toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+
+            $("#myInput2").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#patologia-menu li a").filter(function () {
+                    $(this).parent().toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+
+            // Exibir ou ocultar informações adicionais ao clicar nos checkboxes
+            $(document).on('change', '#patologiasAssociadas', function () {
+                if ($(this).val() === 'Sim') {
+                    $('#info-patologias').slideDown(); // Mostra as informações
+                } else {
+                    $('#info-patologias').slideUp(); // Esconde as informações
+                }
+            });
+
+            // Mostrar informações de sintomas respiratórios
+            $(document).on('change', '#respiratorios', function () {
+                if ($(this).val() === 'Sim') {
+                    $('#respiratorios-perguntas').slideDown(); // Mostra perguntas adicionais para sintomas respiratórios
+                } else {
+                    $('#respiratorios-perguntas').slideUp(); // Esconde perguntas adicionais para sintomas respiratórios
+                }
+            });
+
+            // Mostrar informações de sintomas motores
+            $(document).on('change', '#motores', function () {
+                if ($(this).val() === 'Sim') {
+                    $('#perguntas-sensacoes-pernas').slideDown(); // Mostra perguntas adicionais para sintomas motores
+                } else {
+                    $('#perguntas-sensacoes-pernas').slideUp(); // Esconde perguntas adicionais para sintomas motores
+                }
+            });
+
+            // Mostrar ou ocultar mensagem de síndrome das pernas inquietas e pergunta sobre movimentos
+            $(document).on('change', '#sensacoes-pernas', function () {
+                if ($(this).val() === 'Sim') {
+                    $('#mensagem-sensacoes-pernas').slideDown(); // Mostra mensagem para síndrome das pernas inquietas
+                    $('#perguntas-movimentos').hide(); // Esconde perguntas sobre movimentos indesejados
+                } else if ($(this).val() === 'Não') {
+                    $('#mensagem-sensacoes-pernas').slideUp(); // Esconde mensagem para síndrome das pernas inquietas
+                    $('#perguntas-movimentos').slideDown(); // Mostra perguntas sobre movimentos indesejados
+                }
+            });
+
+            // Mostrar ou ocultar mensagens para movimentos indesejados
+            $(document).on('change', '#movimentos-indesejados', function () {
+                if ($(this).val() === 'Sim') {
+                    $('#mensagem-movimentos-indesejados').slideDown(); // Mostra mensagem para parassonia
+                    $('#mensagem-distorcia').hide(); // Esconde mensagem para distúrbio do sono
+                } else if ($(this).val() === 'Não') {
+                    $('#mensagem-movimentos-indesejados').slideUp(); // Esconde mensagem para parassonia
+                    $('#mensagem-distorcia').slideDown(); // Mostra mensagem para distúrbio do sono
+                }
+            });
+
+            // Destacar o link ativo
+            const currentPath = window.location.pathname.split("/").pop();
+            $(".nav-link").each(function () {
+                if ($(this).attr("href") === currentPath) {
+                    $(this).addClass("active");
+                }
+            });
+        });
+
+        // Função para verificar sintomas respiratórios
+        function verificarSintomasRespiratorios() {
+            var acordaNoite = document.getElementById("acorda-noite").value;
+            var ressonaAlto = document.getElementById("ressona-alto").value;
+            var sonolenciaDiurna = document.getElementById("sonolencia-diurna").value;
+
+            var mensagemTexto = "";
+            var mensagemElemento = document.getElementById("mensagem-respiratorios");
+
+            if (acordaNoite === "" || ressonaAlto === "" || sonolenciaDiurna === "") {
+                mensagemTexto = "Por favor, responda a todas as perguntas.";
+            } else {
+                if ((acordaNoite === "Não" && ressonaAlto === "Não" && sonolenciaDiurna === "Sim") ||
+                    (acordaNoite === "Não" && ressonaAlto === "Não" && sonolenciaDiurna === "Não")) {
+                    mensagemTexto = "Mantém distúrbio do sono ou não foram identificadas causas solucionáveis.";
+                } else {
+                    mensagemTexto = "Investigar para: Distúrbio respiratório associado ao sono (ex: apneia do sono). Orientar diagnóstico e tratamento para a patologia.";
+                }
+            }
+
+            mensagemElemento.style.display = "block";
+            document.getElementById("mensagem-respiratorios-texto").innerText = mensagemTexto;
+        }
+    </script>
+</body>
+</html>
