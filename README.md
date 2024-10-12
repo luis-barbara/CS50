@@ -69,20 +69,20 @@ It enhances the data entry process by providing immediate guidance, ensuring bot
 9.	Responsive Design:
 dxMed is designed to be fully responsive, ensuring a seamless user experience across various devices and screen sizes.
 Technologies Used:
-•	Frontend: HTML, CSS, JavaScript, jQuery, Bootstrap
-•	Backend: (To be specified based on further development)
-•	Libraries/Frameworks: Bootstrap for responsive design, jQuery for dynamic content manipulation
+- Frontend: HTML, CSS, JavaScript, jQuery, Bootstrap
+- Backend: (To be specified based on further development)
+- Libraries/Frameworks: Bootstrap for responsive design, jQuery for dynamic content manipulation
 Implementation Details:
-•	HTML/CSS: The user interface is crafted using Bootstrap and custom CSS, providing a clean and adaptable design.
-•	JavaScript/jQuery: Used for managing dynamic interactions, such as updating form fields and processing user inputs.
-•	Algorithms: Specialized algorithms analyze the collected data to generate results tailored to the selected specialty and pathology.
+- HTML/CSS: The user interface is crafted using Bootstrap and custom CSS, providing a clean and adaptable design.
+- JavaScript/jQuery: Used for managing dynamic interactions, such as updating form fields and processing user inputs.
+- Algorithms: Specialized algorithms analyze the collected data to generate results tailored to the selected specialty and pathology.
 Usage Scenarios:
-•	Medical Professionals: Utilize dxMed to capture detailed patient histories and receive accurate diagnostic or treatment recommendations based on algorithmic analysis.
-•	Healthcare Institutions: Integrate dxMed to streamline the management of clinical data, improving diagnostic accuracy and operational efficiency.
+- Medical Professionals: Utilize dxMed to capture detailed patient histories and receive accurate diagnostic or treatment recommendations based on algorithmic analysis.
+- Healthcare Institutions: Integrate dxMed to streamline the management of clinical data, improving diagnostic accuracy and operational efficiency.
 Future Enhancements:
-•	Backend Integration: Develop server-side functionality to securely store and retrieve patient data.
-•	Advanced Analytics: Introduce features for analyzing clinical data trends and deriving insights.
-•	User Authentication: Implement secure login and user management features to safeguard sensitive patient information.
+- Backend Integration: Develop server-side functionality to securely store and retrieve patient data.
+- Advanced Analytics: Introduce features for analyzing clinical data trends and deriving insights.
+- User Authentication: Implement secure login and user management features to safeguard sensitive patient information.
 
 
 
